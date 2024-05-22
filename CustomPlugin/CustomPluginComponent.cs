@@ -15,12 +15,13 @@ namespace CustomPlugin
             gameWorld = Singleton<GameWorld>.Instance;
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (gameWorld == null)
             {
                 ConsoleScreen.Log("Custom Plugin failed to get GameWorld and will try again.");
                 gameWorld = Singleton<GameWorld>.Instance;
+                return;
             }
 
             SpawnPhysicsObject();
