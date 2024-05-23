@@ -82,8 +82,6 @@
     <Compile Include="Patches\GameWorldPatch.cs" />
     <Compile Include="Components\SillyBallComponent.cs" />
     <Compile Include="Packets\BallPacket.cs" />
-    <Compile Include="Components\CustomPluginComponent.cs" />
-    <Compile Include="Patches\GameWorldPatchOLD.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

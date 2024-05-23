@@ -14,7 +14,10 @@ namespace SillyBalls
         NetDataWriter writer;
         public static ManualLogSource logger;
         public static ConfigEntry<bool> fikaNetworking { get; set; }
-        public static ConfigEntry<float> ballDespawnSpeed { get; set; }
+        public static ConfigEntry<float> sillyballSize { get; set; }
+        public static ConfigEntry<float> sillyballSpawnForce { get; set; }
+        public static ConfigEntry<float> sillyballShrinkSpeed { get; set; }
+        public static ConfigEntry<bool> sillyballsOnDeathOnly { get; set; }
 
         void Awake()
         {
@@ -22,7 +25,10 @@ namespace SillyBalls
             logger.LogInfo("Loaded Custom Plugin");
 
             fikaNetworking = Config.Bind<bool>("Settings", "FIKA Networking", false, "Game MUST be restarted for this to take effect!");
-            ballDespawnSpeed = Config.Bind<float>("Settings", "Despawn Speed", 5.0f);
+            sillyballSize = Config.Bind<float>("Settings", "SillyBall Size", 1.0f);
+            sillyballSpawnForce = Config.Bind<float>("Settings", "SillyBall Spawn Force", 1.0f);
+            sillyballShrinkSpeed = Config.Bind<float>("Settings", "Shrink Speed", 1.0f);
+            sillyballsOnDeathOnly = Config.Bind<bool>("Settings", "SillyBalls On Death Only", false);
 
             if (fikaNetworking.Value)
             {
