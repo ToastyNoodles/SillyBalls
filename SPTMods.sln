@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomPlugin", "CustomPlugin\CustomPlugin.csproj", "{E5FBF0C7-E2C0-4CD3-81F8-C91EFA60CF21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SillyBallsPlugin", "CustomPlugin\SillyBallsPlugin.csproj", "{E5FBF0C7-E2C0-4CD3-81F8-C91EFA60CF21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

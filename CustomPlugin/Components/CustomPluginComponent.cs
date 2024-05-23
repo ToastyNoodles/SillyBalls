@@ -4,7 +4,7 @@ using Comfort.Common;
 using BepInEx;
 using System.Collections.Generic;
 
-namespace CustomPlugin
+namespace SillyBalls
 {
     public class CustomPluginComponent : MonoBehaviour
     {
@@ -39,17 +39,19 @@ namespace CustomPlugin
         {
             if (gameWorld != null)
             {
-
                 GameObject physicsObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                physicsObject.AddComponent<BallLifeTimeComponent>();
+                physicsObject.AddComponent<SillyBallComponent>();
                 physicsObject.AddComponent<Rigidbody>();
-                physicsObject.transform.position = gameWorld.MainPlayer.Transform.position + (Vector3.up * 2.0f);
+
+                physicsObject.transform.position = gameWorld.MainPlayer.Transform.position + ((Vector3.up + transform.forward) * 4.0f);
                 float objectScale = Random.Range(0.2f, 0.8f);
                 physicsObject.transform.localScale = Vector3.one * objectScale;
+
                 MeshRenderer physicsObjectMeshRenderer = physicsObject.GetComponent<MeshRenderer>();
                 physicsObjectMeshRenderer.material.color = new Color(Random.value, Random.value, Random.value);
                 physicsObjectMeshRenderer.material.SetFloat("_Glossiness", Random.value);
                 physicsObjectMeshRenderer.material.SetFloat("_Metallic", Random.value);
+
                 physicsObject.GetComponent<Collider>().material.bounciness = 1.0f;
                 physicsObject.GetComponent<Rigidbody>().mass = 0.01f;
 

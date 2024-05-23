@@ -7,8 +7,8 @@
     <ProjectGuid>{E5FBF0C7-E2C0-4CD3-81F8-C91EFA60CF21}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CustomPlugin</RootNamespace>
-    <AssemblyName>CustomPlugin</AssemblyName>
+    <RootNamespace>SillyBalls</RootNamespace>
+    <AssemblyName>SillyBalls</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\spt\EscapeFromTarkov_Data\Managed\Comfort.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Fika.Core">
+      <HintPath>D:\spt\BepInEx\plugins\Fika.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -75,11 +78,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BallLifeTimeComponent.cs" />
-    <Compile Include="CustomPluginComponent.cs" />
-    <Compile Include="CustomPluginPatch.cs" />
+    <Compile Include="Patches\ApplyDamageInfoPatch.cs" />
+    <Compile Include="Patches\GameWorldPatch.cs" />
+    <Compile Include="Components\SillyBallComponent.cs" />
+    <Compile Include="Packets\BallPacket.cs" />
+    <Compile Include="Components\CustomPluginComponent.cs" />
+    <Compile Include="Patches\GameWorldPatchOLD.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

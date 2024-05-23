@@ -3,9 +3,9 @@ using EFT;
 using System.Reflection;
 using UnityEngine;
 
-namespace CustomPlugin
+namespace SillyBalls
 {
-    public class CustomPluginPatch : ModulePatch
+    public class GameWorldPatchOLD : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
