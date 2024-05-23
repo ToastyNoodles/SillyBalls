@@ -15,22 +15,36 @@ namespace SillyBalls.Patches
         [PatchPrefix]
         public static void Prefix(DamageInfo damageInfo, EBodyPart bodyPartType, EBodyPartColliderType colliderType, float absorbed)
         {
-            Rigidbody sillyRigidbody;
-            MeshRenderer sillyMeshRenderer;
-            float spawnOffset = 2.0f;
+            IPlayer currentPlayer = damageInfo.Player.iPlayer;
+            if (Plugin.sillyballsOnDeathOnly.Value && !currentPlayer.HealthController.IsAlive)
+                SpawnSillyBall(damageInfo.HitPoint, Plugin.sillyballSpawnCount.Value);
+            else
+                SpawnSillyBall(damageInfo.HitPoint, Plugin.sillyballSpawnCount.Value);
+        }
 
-            GameObject sillyBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sillyBall.AddComponent<SillyBallComponent>();
-            sillyBall.transform.position = damageInfo.HitPoint + (Vector3.up * spawnOffset);
-            sillyBall.transform.localScale = Vector3.one * Plugin.sillyballSize.Value;
+        private static void SpawnSillyBall(Vector3 spawnPosition, int spawnCount)
+        {
+            for (int i = 0; i < spawnCount; i++)
+            {
+                GameObject sillyBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                sillyBall.AddComponent<SillyBallComponent>();
+                sillyBall.transform.position = spawnPosition;
+                float randomScale = Random.Range(Plugin.sillyballMinSpawnSize.Value, Plugin.sillyballMaxSpawnSize.Value);
+                sillyBall.transform.localScale = Vector3.one * randomScale;
 
-            sillyRigidbody = sillyBall.AddComponent<Rigidbody>();
-            sillyRigidbody.AddForce(Random.insideUnitSphere * Plugin.sillyballSpawnForce.Value, ForceMode.Impulse);
+                sillyBall.AddComponent<Rigidbody>();
+                Rigidbody sillyBallRigidbody = sillyBall.GetComponent<Rigidbody>();
+                sillyBallRigidbody.AddForce(Random.insideUnitSphere * Plugin.sillyballSpawnForce.Value, ForceMode.Impulse);
+                sillyBallRigidbody.mass = 0.01f;
 
-            sillyMeshRenderer = sillyBall.AddComponent<MeshRenderer>();
-            sillyMeshRenderer.material.color = new Color(Random.value, Random.value, Random.value);
-            sillyMeshRenderer.material.SetFloat("_Metallic", Random.value);
-            sillyMeshRenderer.material.SetFloat("_Glossiness", Random.value);
+                MeshRenderer sillyBallMeshRenderer = sillyBall.GetComponent<MeshRenderer>();
+                sillyBallMeshRenderer.material.color = new Color(Random.value, Random.value, Random.value);
+                sillyBallMeshRenderer.material.SetFloat("_Metallic", Random.value);
+                sillyBallMeshRenderer.material.SetFloat("_Glossiness", Random.value);
+
+                Collider sillyBallCollider = sillyBall.GetComponent<Collider>();
+                sillyBallCollider.material.bounciness = 1.0f;
+            }
         }
     }
 }
