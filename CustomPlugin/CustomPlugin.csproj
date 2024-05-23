@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BallLifeTimeComponent.cs" />
     <Compile Include="CustomPluginComponent.cs" />
     <Compile Include="CustomPluginPatch.cs" />
     <Compile Include="Plugin.cs" />

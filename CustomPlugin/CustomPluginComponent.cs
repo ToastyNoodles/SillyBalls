@@ -2,7 +2,7 @@
 using UnityEngine;
 using Comfort.Common;
 using BepInEx;
-using EFT.UI;
+using System.Collections.Generic;
 
 namespace CustomPlugin
 {
@@ -10,23 +10,26 @@ namespace CustomPlugin
     {
         private GameWorld gameWorld;
         private bool toggleSpawnPhysicsObject = false;
+        private List<GameObject> physicsObjects = new List<GameObject>();
 
         void Start()
         {
             gameWorld = Singleton<GameWorld>.Instance;
         }
 
+        void Update()
+        {
+            if (UnityInput.Current.GetKeyDown(KeyCode.I))
+                toggleSpawnPhysicsObject = !toggleSpawnPhysicsObject;
+        }
+
         void FixedUpdate()
         {
             if (gameWorld == null)
             {
-                ConsoleScreen.Log("Custom Plugin failed to get GameWorld and will try again.");
                 gameWorld = Singleton<GameWorld>.Instance;
                 return;
             }
-
-            if (UnityInput.Current.GetKeyDown(KeyCode.I))
-                toggleSpawnPhysicsObject = !toggleSpawnPhysicsObject;
 
             if (toggleSpawnPhysicsObject)
                 SpawnPhysicsObject();
@@ -36,14 +39,21 @@ namespace CustomPlugin
         {
             if (gameWorld != null)
             {
+
                 GameObject physicsObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                physicsObject.AddComponent<BallLifeTimeComponent>();
                 physicsObject.AddComponent<Rigidbody>();
-                physicsObject.transform.position = gameWorld.MainPlayer.Transform.position + (Vector3.up * 5.0f);
-                float objectScale = Random.Range(0.1f, 1.0f);
-                physicsObject.transform.localScale = new Vector3(objectScale, objectScale, objectScale);
-                physicsObject.GetComponent<MeshRenderer>().material.color = new Color(Random.value, Random.value, Random.value);
-                physicsObject.GetComponent<Collider>().material.bounciness = 5.0f;
-                physicsObject.GetComponent<Rigidbody>().mass = 0.1f;
+                physicsObject.transform.position = gameWorld.MainPlayer.Transform.position + (Vector3.up * 2.0f);
+                float objectScale = Random.Range(0.2f, 0.8f);
+                physicsObject.transform.localScale = Vector3.one * objectScale;
+                MeshRenderer physicsObjectMeshRenderer = physicsObject.GetComponent<MeshRenderer>();
+                physicsObjectMeshRenderer.material.color = new Color(Random.value, Random.value, Random.value);
+                physicsObjectMeshRenderer.material.SetFloat("_Glossiness", Random.value);
+                physicsObjectMeshRenderer.material.SetFloat("_Metallic", Random.value);
+                physicsObject.GetComponent<Collider>().material.bounciness = 1.0f;
+                physicsObject.GetComponent<Rigidbody>().mass = 0.01f;
+
+                physicsObjects.Add(physicsObject);
             }
         }
     }
