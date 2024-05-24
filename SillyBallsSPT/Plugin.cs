@@ -1,20 +1,14 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
-using Fika.Core.Modding;
-using Fika.Core.Modding.Events;
-using LiteNetLib.Utils;
-using SillyBalls.Packets;
 using SillyBalls.Patches;
 
 namespace SillyBalls
 {
-    [BepInPlugin("com.noodles.sillyballs", "Silly Balls", "1.0.0")]
-    [BepInDependency("com.fika.core")]
+    [BepInPlugin("com.noodles.sillyballsSPT", "Silly Balls SPT", "1.0.0")]
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource logger;
-        public static NetDataWriter writer;
         
         //Silly Balls Config Settings
         public static ConfigEntry<int> sillyballSpawnCount { get; set; }
@@ -31,23 +25,9 @@ namespace SillyBalls
             sillyballMinSpawnSize = Config.Bind<float>("Settings", "SillyBall Min Spawn Size", 0.2f);
             sillyballMaxSpawnSize = Config.Bind<float>("Settings", "SillyBall Max Spawn Size", 0.8f);
 
-            writer = new NetDataWriter();
-            FikaEventDispatcher.SubscribeEvent<FikaClientCreatedEvent>(OnClientCreated);
-
             new ApplyDamageInfoPatch().Enable();
 
-            Logger.LogInfo("Loaded SillyBalls");
-        }
-
-        private void OnClientCreated(FikaClientCreatedEvent @event)
-        {
-            @event.Client.packetProcessor.SubscribeNetSerializable<SpawnSillyBallPacket>(HandleSpawnSillyBallPacketClient);
-        }
-
-        private void HandleSpawnSillyBallPacketClient(SpawnSillyBallPacket packet)
-        {
-            //Received packet from server replicate on client
-            ApplyDamageInfoPatch.SpawnBallFromServerOnClient(packet.spawnPosition);
+            Logger.LogInfo("Loaded SillyBalls SPT");
         }
     }
 }
