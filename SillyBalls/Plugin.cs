@@ -60,6 +60,7 @@ namespace SillyBalls
         private void HandleSpawnSillyBallPacketClient(SpawnSillyBallPacket packet)
         {
             ConsoleScreen.Log("Received Packet From Server");
+            ApplyDamageInfoPatch.SpawnBallFromServerOnClient(packet.spawnPosition);
         }
 
         private void HandleSpawnSillyBallPacketServer(SpawnSillyBallPacket packet)

@@ -53,6 +53,7 @@ namespace SillyBalls.Patches
                 if (Plugin.fikaNetworking.Value)
                 {
                     SpawnSillyBallPacket sillyBallPacket = new SpawnSillyBallPacket();
+                    sillyBallPacket.spawnPosition = spawnPosition;
                     if (Singleton<FikaServer>.Instantiated)
                     {
                         ConsoleScreen.Log("Sent Packet To Clients");
@@ -69,6 +70,11 @@ namespace SillyBalls.Patches
                     }
                 }
             }
+        }
+
+        public static void SpawnBallFromServerOnClient(Vector3 position)
+        {
+            SpawnSillyBall(position, Plugin.sillyballSpawnCount.Value);
         }
     }
 }
