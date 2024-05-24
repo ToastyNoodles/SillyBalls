@@ -33,13 +33,13 @@ namespace SillyBalls.Patches
             {
                 GameObject sillyBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 sillyBall.AddComponent<SillyBallComponent>();
-                sillyBall.transform.position = spawnPosition;
+                sillyBall.transform.position = spawnPosition + (Vector3.up * 2.0f);
                 float randomScale = Random.Range(Plugin.sillyballMinSpawnSize.Value, Plugin.sillyballMaxSpawnSize.Value);
                 sillyBall.transform.localScale = Vector3.one * randomScale;
 
                 sillyBall.AddComponent<Rigidbody>();
                 Rigidbody sillyBallRigidbody = sillyBall.GetComponent<Rigidbody>();
-                sillyBallRigidbody.AddForce(Random.insideUnitSphere * Plugin.sillyballSpawnForce.Value, ForceMode.Impulse);
+                sillyBallRigidbody.AddForce(Random.insideUnitSphere + (Vector3.up * Plugin.sillyballSpawnForce.Value), ForceMode.Impulse);
                 sillyBallRigidbody.mass = 0.01f;
 
                 MeshRenderer sillyBallMeshRenderer = sillyBall.GetComponent<MeshRenderer>();
@@ -53,16 +53,19 @@ namespace SillyBalls.Patches
                 if (Plugin.fikaNetworking.Value)
                 {
                     SpawnSillyBallPacket sillyBallPacket = new SpawnSillyBallPacket();
-
                     if (Singleton<FikaServer>.Instantiated)
                     {
                         ConsoleScreen.Log("Sent Packet To Clients");
                         Singleton<FikaServer>.Instance.SendDataToAll(Plugin.writer, ref sillyBallPacket, DeliveryMethod.Unreliable);
                     }
-                    else
+                    else if (Singleton<FikaClient>.Instantiated)
                     {
                         ConsoleScreen.Log("Sent Packet To Server");
                         Singleton<FikaClient>.Instance.SendData(Plugin.writer, ref sillyBallPacket, DeliveryMethod.Unreliable);
+                    }
+                    else
+                    {
+                        ConsoleScreen.Log("FIKA Networking is enabled but neither client or server are running.");
                     }
                 }
             }
