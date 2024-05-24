@@ -1,8 +1,8 @@
 ﻿using LiteNetLib.Utils;
 
-namespace SillyBalls
+namespace SillyBalls.Packets
 {
-    public class BallPacket : INetSerializable
+    public class SpawnSillyBallPacket : INetSerializable
     {
         public void Deserialize(NetDataReader reader)
         {

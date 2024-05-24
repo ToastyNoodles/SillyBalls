@@ -78,10 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packets\SpawnSillyBallPacket.cs" />
     <Compile Include="Patches\ApplyDamageInfoPatch.cs" />
-    <Compile Include="Patches\GameWorldPatch.cs" />
     <Compile Include="Components\SillyBallComponent.cs" />
-    <Compile Include="Packets\BallPacket.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
