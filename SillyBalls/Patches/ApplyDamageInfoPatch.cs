@@ -19,10 +19,7 @@ namespace SillyBalls.Patches
         [PatchPrefix]
         public static void Prefix(DamageInfo damageInfo, EBodyPart bodyPartType, EBodyPartColliderType colliderType, float absorbed)
         {
-            if (Plugin.fikaNetworking.Value)
-                NetworkSpawnSillyBall(damageInfo.HitPoint, Plugin.sillyballSpawnCount.Value);
-            else
-                SpawnSillyBall(damageInfo.HitPoint, Plugin.sillyballSpawnCount.Value);
+            NetworkSpawnSillyBall(damageInfo.HitPoint, Plugin.sillyballSpawnCount.Value);
         }
 
         private static void NetworkSpawnSillyBall(Vector3 spawnPosition, int spawnCount)
