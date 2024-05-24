@@ -1,7 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
-using EFT.UI;
 using Fika.Core.Modding;
 using Fika.Core.Modding.Events;
 using LiteNetLib.Utils;
