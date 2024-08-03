@@ -1,20 +1,20 @@
 ﻿using SPT.Reflection.Patching;
-using EFT;
 using System.Reflection;
+using EFT;
 
 namespace SillyBalls
 {
-    public class ApplyDamageInfoPatch : ModulePatch
+    public class OnEnemyKillPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
-            return typeof(Player).GetMethod(nameof(Player.ApplyDamageInfo));
+            return typeof(LocalPlayer).GetMethod(nameof(LocalPlayer.OnBeenKilledByAggressor));
         }
 
         [PatchPrefix]
-        public static void Prefix(DamageInfo damageInfo, EBodyPart bodyPartType, EBodyPartColliderType colliderType, float absorbed)
+        public static void Prefix(IPlayer aggressor, DamageInfo damageInfo, EBodyPart bodyPart, EDamageType lethalDamageType)
         {
-            if (Plugin.EnableOnHit.Value)
+            if (Plugin.EnableOnKill.Value)
             {
                 for (int i = 0; i < Plugin.SillyBallsAmount.Value; i++)
                 {
