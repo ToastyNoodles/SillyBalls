@@ -49,7 +49,6 @@ namespace SillyBalls
 
         void Update()
         {
-            EFT.UI.ConsoleScreen.Log("FIKA CLIENT UPDATE?");
             if (EnablePhysics.Value && Singleton<GameWorld>.Instance != null)
             {
                 EFTPhysicsClass.GClass650.UpdateEnabled = true;
