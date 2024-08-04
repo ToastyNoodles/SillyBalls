@@ -8,7 +8,7 @@ namespace SillyBalls
     public static class SillyballSpawner
     {
         public static void NetworkSillyBall(Vector3 position)
-        { 
+        {
             for (int i = 0; i < Plugin.SillyBallsAmount.Value; i++)
             {
                 SpawnSillyBall(position);
@@ -37,15 +37,15 @@ namespace SillyBalls
 
                 sillyBall.name = "SillyballObject";
                 sillyBall.transform.position = position;
-                sillyBall.transform.localScale = Vector3.one * UnityEngine.Random.Range(Plugin.SillyBallsMinSize.Value, Plugin.SillyBallsMaxSize.Value);
+                sillyBall.transform.localScale = Vector3.one * Random.Range(Plugin.SillyBallsMinSize.Value, Plugin.SillyBallsMaxSize.Value);
 
                 Rigidbody sillyBallRigidbody = sillyBall.AddComponent<Rigidbody>();
-                sillyBallRigidbody.AddForce(UnityEngine.Random.insideUnitSphere * Plugin.SillyBallsForce.Value, ForceMode.Impulse);
+                sillyBallRigidbody.AddForce(Random.insideUnitSphere * Plugin.SillyBallsForce.Value, ForceMode.Impulse);
 
                 MeshRenderer sillyBallMeshRenderer = sillyBall.GetComponent<MeshRenderer>();
-                sillyBallMeshRenderer.material.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
-                sillyBallMeshRenderer.material.SetFloat("_Metallic", UnityEngine.Random.value);
-                sillyBallMeshRenderer.material.SetFloat("_Glossiness", UnityEngine.Random.value);
+                sillyBallMeshRenderer.material.color = new Color(Random.value, Random.value, Random.value);
+                sillyBallMeshRenderer.material.SetFloat("_Metallic", Random.value);
+                sillyBallMeshRenderer.material.SetFloat("_Glossiness", Random.value);
 
                 Collider sillyBallCollider = sillyBall.GetComponent<Collider>();
                 sillyBallCollider.material.bounciness = Plugin.SillyBallsBounciness.Value;

@@ -5,13 +5,11 @@ using Comfort.Common;
 using EFT;
 using Fika.Core.Modding;
 using Fika.Core.Modding.Events;
-using Fika.Core.Networking;
-using LiteNetLib;
 using LiteNetLib.Utils;
 
 namespace SillyBalls
 {
-    [BepInPlugin("com.noodles.sillyballs", "Silly Balls FIKA", "1.1")]
+    [BepInPlugin("com.noodles.sillyballs", "SillyBallsFIKA", "1.1")]
     [BepInDependency("com.fika.core")]
     public class Plugin : BaseUnityPlugin
     {
@@ -46,11 +44,12 @@ namespace SillyBalls
             new ApplyDamageInfoPatch().Enable();
             new OnEnemyKillPatch().Enable();
 
-            Logger.LogInfo("Loaded SillyBalls");
+            Logger.LogInfo("Loaded SillyBalls FIKA");
         }
 
         void Update()
         {
+            EFT.UI.ConsoleScreen.Log("FIKA CLIENT UPDATE?");
             if (EnablePhysics.Value && Singleton<GameWorld>.Instance != null)
             {
                 EFTPhysicsClass.GClass650.UpdateEnabled = true;
